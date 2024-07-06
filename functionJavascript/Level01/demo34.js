@@ -1,0 +1,10 @@
+function lchown(path, uid, gid, callback) {
+    callback = makeCallback(callback);
+    path = getValidatedPath(path);
+    validateInteger(uid, 'uid', -1, kMaxUserId);
+    validateInteger(gid, 'gid', -1, kMaxUserId);
+    const req = new FSReqCallback();
+    req.oncomplete = callback;
+    binding.lchown(pathModule.toNamespacedPath(path), uid, gid, req);
+}
+  
